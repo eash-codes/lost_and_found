@@ -1,0 +1,148 @@
+/* General styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+}
+
+/* Container */
+.landing-container {
+    width: 90%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.welcome-section h1 {
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.intro-message {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+/* Grid styles */
+.missing-items-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    justify-content: center;
+    padding: 20px;
+}
+
+/* Card styles */
+.card {
+    position: relative;
+    width: 100%;
+    height: 400px;
+    background-color: #f2f2f2;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Front image */
+.card-image {
+    width: 100%;
+    height: 60%;
+    object-fit: cover;
+}
+
+/* Back content */
+.card__content {
+    position: absolute;
+    bottom: 60px; /* Ensure the Claim button remains visible */
+    left: 0;
+    width: 100%;
+    height: 40%;
+    background: #fff;
+    padding: 15px;
+    box-sizing: border-box;
+    transform: rotateX(-90deg);
+    transform-origin: bottom;
+    transition: transform 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.card:hover .card__content {
+    transform: rotateX(0);
+}
+
+/* Title and description */
+.card__title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.card__description {
+    font-size: 0.9rem;
+    color: #555;
+    margin-bottom: 5px;
+}
+
+/* Claim Button */
+.claim-btn {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.claim-btn:hover {
+    background-color: #0056b3;
+}
+.card-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: royalblue;
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 16px;
+  }
+  
+  .card-btn:hover {
+    background-color: rgb(56, 90, 194);
+  }
+  /* Delete Button Styles */
+.delete-form {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.delete-btn {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.delete-btn:hover {
+    background-color: #b02a37;
+}

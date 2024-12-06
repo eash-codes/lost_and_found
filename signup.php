@@ -5,6 +5,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST['email'];
     $password = $_POST['password'];
     $confirm_password = $_POST['confirm_password'];
+    $phone_number = $_POST['phone_number'];  // New phone number field
 
     // Check if passwords match
     if ($password !== $confirm_password) {
@@ -20,9 +21,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         // Insert into database
-        $sql = "INSERT INTO users (display_name, email, password) VALUES (?, ?, ?)";
+        $sql = "INSERT INTO users (display_name, email, password, phone_number) VALUES (?, ?, ?, ?)";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("sss", $display_name, $email, $hashed_password);
+        $stmt->bind_param("ssss", $display_name, $email, $hashed_password, $phone_number);
 
         if ($stmt->execute()) {
             echo "<script>alert('Signup successful!');</script>";
@@ -69,6 +70,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <label>
             <input required type="password" class="input" name="confirm_password">
             <span>Confirm Password</span>
+        </label>
+
+        <!-- New phone number field -->
+        <label>
+            <input required type="text" class="input" name="phone_number">
+            <span>Phone Number</span>
         </label>
 
         <button class="submit" type="submit">Register</button>

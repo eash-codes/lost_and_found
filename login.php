@@ -25,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Successful login
             $_SESSION['email'] = $email;  // Store the email in session
             echo "Login successful! Redirecting to the main page...";
-            header("refresh:2;url=main.php"); // Redirect to main page after 2 seconds
+            header("refresh:2;url=landing.php"); // Redirect to main page after 2 seconds
             exit();
         } else {
             // Invalid password
