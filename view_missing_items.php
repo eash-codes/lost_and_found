@@ -25,55 +25,6 @@ $result = $conn->query($sql);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Missing Items</title>
     <link rel="stylesheet" href="vmistyles.css">
-    <style>
-        /* Modal styles */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: white;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            z-index: 1000;
-            padding: 20px;
-            border-radius: 8px;
-        }
-
-        .modal h3 {
-            margin-bottom: 10px;
-        }
-
-        .modal p {
-            margin: 5px 0;
-        }
-
-        .modal-close {
-            display: block;
-            margin-top: 10px;
-            text-align: center;
-            color: white;
-            background-color: #333;
-            padding: 8px 12px;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        .modal-close:hover {
-            background-color: #555;
-        }
-
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 999;
-        }
-    </style>
 </head>
 <body>
     <div class="landing-container">
@@ -102,6 +53,14 @@ $result = $conn->query($sql);
                                 onclick="showOwnerDetails('<?php echo htmlspecialchars($row['reported_by']); ?>', '<?php echo htmlspecialchars($row['phone_number']); ?>')">
                             Contact Owner
                         </button>
+
+                        <!-- Delete Button (Visible only for specific user) -->
+                        <?php if ($user_email == "22151542"): ?>
+                            <form action="delete_item.php" method="POST" style="margin-top: 10px;">
+                                <input type="hidden" name="item_id" value="<?php echo $row['id']; ?>">
+                                <button type="submit" class="delete-btn">Delete</button>
+                            </form>
+                        <?php endif; ?>
                     </div>
                 <?php endwhile; ?>
             <?php else: ?>
