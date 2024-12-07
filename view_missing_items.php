@@ -14,7 +14,7 @@ $user_email = $_SESSION['email'];
 require_once "db_connection.php";
 
 // Fetch lost items from the database
-$sql = "SELECT item_name, location_lost, date_lost, description, image_path FROM lost_items ORDER BY date_reported DESC";
+$sql = "SELECT id, item_name, location_lost, date_lost, description, image_path, reported_by FROM lost_items ORDER BY date_reported DESC";
 $result = $conn->query($sql);
 ?>
 
