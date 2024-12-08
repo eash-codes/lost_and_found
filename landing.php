@@ -42,7 +42,7 @@ $result = $conn->query($sql);
     <div class="landing-container">
         <div class="welcome-section">
             <h1>Welcome back, <?php echo htmlspecialchars($display_name); ?> !</h1>
-            <p class="intro-message">Explore the Lost and Found system. Report and find lost items easily!</p>
+            <p class="intro-message">Explore the Lost and Found system of Graphic Era University . Report and find lost items easily!</p>
         </div>
 
         <!-- Cards for navigation -->
@@ -50,18 +50,21 @@ $result = $conn->query($sql);
             <div class="card">
                 <h2>View Lost Items</h2>
                 <p>Browse through the list of lost items reported by your fellow students.</p>
-                <a href="view_lost_items.php" class="card-btn">View Items</a>
+                <a href="view_found_items.php" class="card-btn">View Items</a>
             </div>
-            <div class="card">
-                <h2>Report a Lost Item</h2>
-                <p>Lost something? Let others know by reporting it here!</p>
-                <a href="report_lost_item.php" class="card-btn">Report Lost Item</a>
-            </div>
+            
             <div class="card">
                 <h2>Found an Item?</h2>
                 <p>Found something that doesn't belong to you? Post it here and help others!</p>
                 <a href="report_found_item.php" class="card-btn">Report Found Item</a>
             </div>
+
+            <div class="card">
+                <h2>Report a Lost Item</h2>
+                <p>Lost something? Let others know by reporting it here!</p>
+                <a href="report_lost_item.php" class="card-btn">Report Lost Item</a>
+            </div>
+
             <div class="card">
                 <h2>Missing Items</h2>
                 <p>View all currently missing items reported by others.</p>
