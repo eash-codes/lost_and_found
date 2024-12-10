@@ -13,8 +13,8 @@ if (!isset($_SESSION['email'])) {
 $user_email = $_SESSION['email'];
 
 // Initialize variables
-$item_name = $description = $image_path = $location_found = $date_found = "";
-$item_name_err = $description_err = $image_err = $location_found_err = $date_found_err = "";
+$item_name = $description = $image_path = $location_lost = $date_lost = "";
+$item_name_err = $description_err = $image_err = $location_lost_err = $date_lost_err = "";
 $success_message = "";
 
 // Fetch user details (display_name and phone_number) from the database
@@ -51,17 +51,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Validate location found
-    if (empty(trim($_POST["location_found"]))) {
-        $location_found_err = "Please enter the location where the item was found.";
+    if (empty(trim($_POST["location_lost"]))) {
+        $location_lost_err = "Please enter the location where the item was lost.";
     } else {
-        $location_found = trim($_POST["location_found"]);
+        $location_lost = trim($_POST["location_lost"]);
     }
 
     // Validate date found
-    if (empty(trim($_POST["date_found"]))) {
-        $date_found_err = "Please enter the date the item was found.";
+    if (empty(trim($_POST["date_lost"]))) {
+        $date_lost_err = "Please enter the date the item was found.";
     } else {
-        $date_found = trim($_POST["date_found"]);
+        $date_lost = trim($_POST["date_lost"]);
     }
 
     // Handle image upload
@@ -79,11 +79,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // If no errors, insert data into the database
     if (empty($item_name_err) && empty($description_err) && empty($location_found_err) && empty($date_found_err) && empty($image_err)) {
-        $sql = "INSERT INTO found_items (item_name, description, image_path, location_found, date_found, date_reported, reported_by, phone_number) 
+        $sql = "INSERT INTO lost_items (item_name, description, image_path, location_lost, date_lost, date_reported, reported_by, phone_number) 
                 VALUES (?, ?, ?, ?, ?, NOW(), ?, ?)";
 
         if ($stmt = $conn->prepare($sql)) {
-            $stmt->bind_param("sssssss", $item_name, $description, $image_path, $location_found, $date_found, $display_name, $phone_number);
+            $stmt->bind_param("sssssss", $item_name, $description, $image_path, $location_lost, $date_lost, $display_name, $phone_number);
 
             if ($stmt->execute()) {
                 // Set success message
@@ -99,13 +99,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Report Found Item</title>
+    <title>Report Lost Item</title>
     <link rel="stylesheet" href="styles.css">
     <link href="http://fonts.googleapis.com/css?family=Corben:bold" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Nobile" rel="stylesheet" type="text/css">
@@ -113,8 +112,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
     <div class="landing-container">
         <div class="welcome-section">
-            <h1>Report a Found Item</h1>
-            <p class="intro-message">Let others know by reporting a found item. Fill in the details below.</p>
+            <h1>Report a Lost Item</h1>
+            <p class="intro-message">Let others know by reporting something you Lost . Fill in the details below.</p>
         </div>
 
         <?php if (!empty($success_message)): ?>
@@ -122,37 +121,50 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="success-message">
                 <p><?php echo htmlspecialchars($success_message); ?></p>
                 <div class="button-group">
-                    <a href="view_found_items.php" class="card-btn">View Found Items</a>
+                    <a href="view_missing_items.php" class="card-btn">View Currently Missing Items</a>
                     <a href="landing.php" class="card-btn">Back to Dashboard</a>
                 </div>
             </div>
         <?php else: ?>
             <!-- Form to report found item -->
             <div class="form-container">
-                <form action="report_found_item.php" method="POST" enctype="multipart/form-data" class="form">
-                    <label for="item_name">Item Name:</label>
-                    <input type="text" id="item_name" name="item_name" class="input" value="<?php echo htmlspecialchars($item_name); ?>">
-                    <span class="error"><?php echo $item_name_err; ?></span>
+    <form action="report_lost_item.php" method="POST" enctype="multipart/form-data" class="form">
+        <p class="title">Report Lost Item</p>
+        <p class="message">Please fill in the details below to report a lost item.</p>
 
-                    <label for="description">Description:</label>
-                    <textarea id="description" name="description" class="input"><?php echo htmlspecialchars($description); ?></textarea>
-                    <span class="error"><?php echo $description_err; ?></span>
+        <label>
+            <input type="text" class="input" name="item_name" required value="<?php echo htmlspecialchars($item_name); ?>">
+            <span>Item Name</span>
+        </label>
+        <span class="error"><?php echo $item_name_err; ?></span>
 
-                    <label for="location_found">Location Found:</label>
-                    <input type="text" id="location_found" name="location_found" class="input" value="<?php echo htmlspecialchars($location_found); ?>">
-                    <span class="error"><?php echo $location_found_err; ?></span>
+        <label>
+            <textarea class="input" name="description" required><?php echo htmlspecialchars($description); ?></textarea>
+            <span>Description</span>
+        </label>
+        <span class="error"><?php echo $description_err; ?></span>
 
-                    <label for="date_found">Date Found:</label>
-                    <input type="date" id="date_found" name="date_found" class="input" value="<?php echo htmlspecialchars($date_found); ?>">
-                    <span class="error"><?php echo $date_found_err; ?></span>
+        <label>
+            <input type="text" class="input" name="location_lost" required value="<?php echo htmlspecialchars($location_lost); ?>">
+            <span>Location lost</span>
+        </label>
+        <span class="error"><?php echo $location_lost_err; ?></span>
 
-                    <label for="image">Upload Image (Optional):</label>
-                    <input type="file" id="image" name="image" class="input">
-                    <span class="error"><?php echo $image_err; ?></span>
+        <label>
+            <input type="date" class="input" name="date_lost" required value="<?php echo htmlspecialchars($date_lost); ?>">
+            <span>Date Lost</span>
+        </label>
+        <span class="error"><?php echo $date_lost_err; ?></span>
 
-                    <button type="submit" class="submit">Report Item</button>
-                </form>
-            </div>
+        <label>
+            <input type="file" class="input" name="image">
+            <span>Upload Image</span>
+        </label>
+        <span class="error"><?php echo $image_err; ?></span>
+
+        <button type="submit" class="submit">Report Item</button>
+    </form>
+</div>
         <?php endif; ?>
     </div>
 </body>

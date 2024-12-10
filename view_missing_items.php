@@ -32,7 +32,7 @@ $result = $conn->query($sql);
     <div class="landing-container">
         <div class="welcome-section">
             <h1>Currently Missing Items</h1>
-            <p class="intro-message">Hover over the items to see more details. Click the claim button if you have found the item.</p>
+            <p class="intro-message">Hover over the items to see more details. Click the Contact Owner button if you have found the item.</p>
         </div>
 
         <!-- Missing Items Grid -->
